@@ -2,16 +2,6 @@ package org.yd.ops.mysql.slowlog.dto;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-
-
-@EqualsAndHashCode
-@Data
-@Getter
-@Setter
 public class RowObj {
 	
 	public String getTime() {

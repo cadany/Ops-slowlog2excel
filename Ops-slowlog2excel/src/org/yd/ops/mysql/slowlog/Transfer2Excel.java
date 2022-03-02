@@ -19,28 +19,23 @@ public class Transfer2Excel {
 
 	public static void main(String[] args) throws IOException {
 		System.out.println("init");
-		write();
+		transfer("C:\\Users\\Glycinemax\\Desktop\\mysql-slow.txt", "d:\\2.xlsx");
 		System.out.println("done");
 	}
 
-	private static List<List<String>> reader() throws IOException {
+	private static List<List<String>> reader(String slowlogfile) throws IOException {
 		List<List<String>> list = new ArrayList<>();
-		list.add(Arrays.asList("a1111", "b2222", "", "d3444"));
 		List<String> obj = new ArrayList<>();
 
-		BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Glycinemax\\Desktop\\mysql-slow.txt"));
+		BufferedReader br = new BufferedReader(new FileReader(slowlogfile));
 		String line = null, lastLine = null, margerLine = null;
 		try {
 			while ((line = br.readLine()) != null) {
 				System.out.println("line to:"+list.size());
-//				if (line.isEmpty())
-//					break;
 				line = line.trim();
 				if (line.startsWith("# Time:")) {
-					// 结束上一行
 					obj.add(margerLine);
 					list.add(obj);
-					// 开始新的行
 					margerLine = "";
 					obj = new ArrayList<>();
 					obj.add(line.replace("# Time: ", ""));
@@ -68,16 +63,13 @@ public class Transfer2Excel {
 
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		br.close();
 		return list;
 	}
 
-	private static void write() throws IOException {
-		String fileName = "d:\\2.xlsx";
-		List<HashMap> list = new ArrayList<>();
-		EasyExcel.write(fileName, RowObj.class).sheet("slow1").doWrite(reader());
+	private static void transfer(String slowlogfile, String outputfile) throws IOException {
+		EasyExcel.write(outputfile, RowObj.class).sheet("slow").doWrite(reader(slowlogfile));
 	}
 }
