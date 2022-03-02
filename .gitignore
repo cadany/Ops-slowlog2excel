@@ -2,6 +2,7 @@
 target/
 *.versionsBackup
 */target/*
+*/bin/*
 
 # eclipse ignore
 .settings/
